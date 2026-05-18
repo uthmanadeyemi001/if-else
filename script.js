@@ -1,11 +1,12 @@
-const ageCheck =() => {
-    let age = 18
-    const ageCheck = () => {
-        const age = +prompt("Enter your age:");
-        if (age >= 18) {
-            alert("YOU ARE ELIGIBLE TO DRIVE");
-        } else {
-            alert("YOU ARE NOT ELIGIBLE TO DRIVE");
-        }
-    };
+function ageCheck() {
+    let age = prompt("please enter your age");
+    if(age>=18){
+        alert("you are eligible to drive ")
+    }else{
+        let remainingYears = 18 - age;
+        
+        alert(`you cannot drive yet,you still have about ${remainingYears} years remaining to turn 18😒😒.`)
+    }
+    
+    
 }
