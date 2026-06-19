@@ -1,136 +1,101 @@
-/* body{
-    background: radial-gradient(circle at center,#5686fe, #151517);
+* {
+    box-sizing: border-box;
 }
-.button{
-    
-    background-color: #4CAF50;
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top, #2b2f4c 0%, #0d1224 100%);
+    color: #f5f7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+}
+
+.calculator {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.calculator__screen {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 26px;
+}
+
+.calculator__display {
+    min-height: 80px;
+    padding: 18px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    letter-spacing: 0.03em;
+    overflow-wrap: break-word;
+}
+
+.calculator__input {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f7ff;
+}
+
+.calculator__input::placeholder {
+    color: rgba(245, 247, 255, 0.6);
+}
+
+.calculator__keys {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.key {
+    padding: 18px 0;
+    border-radius: 16px;
     border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    margin: 4px auto;
+    font-size: 1.4rem;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 60px;
-    /* padding-top: 40px; */
-    /* margin-top: 35vh; */
-
-/* }
-.button:hover{
-    background-color: #5686fe;
-}
-h1{
-    font-size: larger;
-    font-family: POPPINS;
-    text-align: center;
-    color: #4CAF50;
-}
-.container{
-    margin-top: 30vh;
-} */ 
-
-
-
-.bigbox{
-    height: 55vh;
-    width: 30vw;
-    margin-left: 35vw;
-    background-color: red;
-    border: 1px solid #4CAF50;
-}
-.showbox{
-    margin-top: 7px;
-    margin-left: 6px;
-    margin-right: 5px;
-    height: 15vh;
-    width: 29vw;
-    background-color:white;
-    border-radius: 15px;
-    font-size: 40px;
-}
-.button1{
-    font-size:50px;
-    height: 50px;
-    width: 50px;
-    background-color: aquamarine;
-}
-.button2{
-    font-size:50px;
-
-    height: 50px;
-    width: 50px;
-    background-color: aquamarine;
-}
-.button3{
-    font-size:50px;
-
-    height: 50px;
-    width: 50px;
-    background-color: aquamarine;
-}
-.button4{
-    font-size:40px;
-    height: 50px;
-    width: 50px;
-    background-color: aquamarine;
-}
-.but-div{
-    margin-top: 10vh;
-    margin-left:7vw;
-    display:flex;
-    gap: 20px;
+    transition: transform 0.15s ease, background 0.15s ease;
+    color: #0d1224;
 }
 
-.but-div-2{
-    margin-top: 5vh;
-    margin-left:7vw;
-    display:flex;
-    gap: 20px;
+.key:hover {
+    transform: translateY(-2px);
 }
 
-.equals-btn{
-    font-size: 30px;
-    height: 50px;
-    width: 80px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+.operator {
+    background: #ffd166;
 }
 
-.equals-btn:hover{
-    background-color: #45a049;
+.operator:hover {
+    background: #ffca47;
 }
 
-.clear-btn{
-    font-size: 20px;
-    height: 50px;
-    width: 80px;
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+.equal {
+    background: #06d6a0;
+    grid-column: span 3;
 }
 
-.clear-btn:hover{
-    background-color: #ff5252;
-}
-
-.input-box{
-    margin-top: 7px;
-    margin-left: 6px;
-    margin-right: 5px;
-    height: 10vh;
-    width: 28vw;
-    background-color: white;
-    border-radius: 15px;
-    font-size: 25px;
-    padding: 5px;
-    border: 2px solid #4CAF50;
+.equal:hover {
+    background: #05c38a;
 }
