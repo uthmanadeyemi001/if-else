@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,5 +25,182 @@
     </div>
 
     <script src="script.js"></script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Todo App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top left, brown 10%, brown 40%, #f7fbff 100%);
+            color: #23304c;
+            text-align: center;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: min(440px, 90%);
+            margin: 20px;
+         background: radial-gradient(circle at top right, brown 10%, brown 40%, #f7fbff 100%);
+            box-shadow: 0 18px 40px rgba(35, 48, 76, 0.12);
+            border-radius: 18px;
+            padding: 28px 26px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1e2b44;
+            font-size: 1.8rem;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px 12px;
+            border: 1px solid #aac4f1;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        input:focus {
+            border-color: #4c79d1;
+        }
+
+        button {
+            padding: 10px 14px;
+            cursor: pointer;
+            margin: 2px;
+            border: none;
+            border-radius: 12px;
+            background:yellowgreen;
+            color: #ffffff;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            background: #3a61b1;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 16px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #dce7f5;
+        }
+
+        thead tr {
+            background: #dfe8fc;
+        }
+
+        tbody tr:hover {
+            background: #eaf1ff;
+        }
+
+        .task span.done {
+            text-decoration: line-through;
+            color: #6f8199;
+        }
+
+        .action-buttons button {
+            background: #4c79d1;
+            margin: 0 2px 2px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Todo App</h2>
+
+        <input type="text" id="todoInput" placeholder="Enter a task" style="width:75%;">
+        <button onclick="addTodo()">Add</button>
+
+        <table id="todoTable" style="width:100%;margin-top:12px;border-collapse:collapse;">
+            <thead>
+                <tr style="background:#f0f0f0;text-align:left;">
+                    <th style="padding:6px;border-bottom:1px solid #ddd;">S/N</th>
+                    <th style="padding:6px;border-bottom:1px solid #ddd;">Task</th>
+                    <th style="padding:6px;border-bottom:1px solid #ddd;">Date</th>
+                    <th style="padding:6px;border-bottom:1px solid #ddd;">Action</th>
+                </tr>
+            </thead>
+            <tbody id="todoList"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function addTodo() {
+            let input = document.getElementById('todoInput');
+            let task = input.value;
+
+            if (task === '') { alert('Enter a task'); return; }
+
+            let tbody = document.getElementById('todoList');
+            let tr = document.createElement('tr');
+            let dateStr = new Date().toLocaleDateString();
+
+            tr.innerHTML = '' +
+                '<td class="num" style="padding:6px;border-bottom:1px solid #eee;">0</td>' +
+                '<td class="task" style="padding:6px;border-bottom:1px solid #eee;"><span>' + escapeHtml(task) + '</span></td>' +
+                '<td class="date" style="padding:6px;border-bottom:1px solid #eee;">' + dateStr + '</td>' +
+                '<td style="padding:6px;border-bottom:1px solid #eee;"><button onclick="toggleDone(this)">Done</button><button onclick="editTodo(this)">Edit</button><button onclick="deleteTodo(this)">Delete</button></td>';
+
+            tbody.appendChild(tr);
+            input.value = '';
+            updateNumbers();
+        }
+
+        function toggleDone(button) {
+            let row = button.closest('tr');
+            let span = row.querySelector('.task span');
+            span.classList.toggle('done');
+        }
+
+        function editTodo(button) {
+            let row = button.closest('tr');
+            let taskSpan = row.querySelector('.task span');
+            let newTask = prompt('Edit task:', taskSpan.textContent);
+            if (newTask !== null && newTask !== '') taskSpan.textContent = newTask;
+        }
+
+        function deleteTodo(button) {
+            let row = button.closest('tr');
+            if (row) row.parentElement.removeChild(row);
+            updateNumbers();
+        }
+
+        function updateNumbers(){
+            let tbody = document.getElementById('todoList');
+            let rows = tbody.querySelectorAll('tr');
+            for (let i=0;i<rows.length;i++){
+                let num = rows[i].querySelector('.num');
+                if (num) num.textContent = (i+1);
+            }
+        }
+
+        function escapeHtml(str){
+            if (!str) return '';
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+    </script>
+
 </body>
 </html>
