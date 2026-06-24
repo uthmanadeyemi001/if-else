@@ -147,59 +147,69 @@
     </div>
 
     <script>
-        function addTodo() {
-            let input = document.getElementById('todoInput');
-            let task = input.value;
-
-            if (task === '') { alert('Enter a task'); return; }
-
-            let tbody = document.getElementById('todoList');
-            let tr = document.createElement('tr');
-            let dateStr = new Date().toLocaleDateString();
-
-            tr.innerHTML = '' +
-                '<td class="num" style="padding:6px;border-bottom:1px solid #eee;">0</td>' +
-                '<td class="task" style="padding:6px;border-bottom:1px solid #eee;"><span>' + escapeHtml(task) + '</span></td>' +
-                '<td class="date" style="padding:6px;border-bottom:1px solid #eee;">' + dateStr + '</td>' +
-                '<td style="padding:6px;border-bottom:1px solid #eee;"><button onclick="toggleDone(this)">Done</button><button onclick="editTodo(this)">Edit</button><button onclick="deleteTodo(this)">Delete</button></td>';
-
-            tbody.appendChild(tr);
-            input.value = '';
-            updateNumbers();
+        function saveList() {
+            const tbody = document.getElementById('todoList');
+            localStorage.setItem('todoListHtml', tbody.innerHTML);
         }
 
-        function toggleDone(button) {
-            let row = button.closest('tr');
-            let span = row.querySelector('.task span');
-            span.classList.toggle('done');
-        }
-
-        function editTodo(button) {
-            let row = button.closest('tr');
-            let taskSpan = row.querySelector('.task span');
-            let newTask = prompt('Edit task:', taskSpan.textContent);
-            if (newTask !== null && newTask !== '') taskSpan.textContent = newTask;
-        }
-
-        function deleteTodo(button) {
-            let row = button.closest('tr');
-            if (row) row.parentElement.removeChild(row);
-            updateNumbers();
-        }
-
-        function updateNumbers(){
-            let tbody = document.getElementById('todoList');
-            let rows = tbody.querySelectorAll('tr');
-            for (let i=0;i<rows.length;i++){
-                let num = rows[i].querySelector('.num');
-                if (num) num.textContent = (i+1);
+        function loadList() {
+            const saved = localStorage.getItem('todoListHtml');
+            if (saved) {
+                document.getElementById('todoList').innerHTML = saved;
+                updateNumbers();
             }
         }
 
-        function escapeHtml(str){
-            if (!str) return '';
-            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const task = input.value
+            if (!task) {
+                alert('Enter a task');
+                return;
+            }
+
+            const tbody = document.getElementById('todoList');
+            const date = new Date().toLocaleDateString();
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr>
+                    <td class="num" style="padding:6px;border-bottom:1px solid #eee;">0</td>
+                    <td class="task" style="padding:6px;border-bottom:1px solid #eee;"><span>${task}</span></td>
+                    <td class="date" style="padding:6px;border-bottom:1px solid #eee;">${date}</td>
+                    <td style="padding:6px;border-bottom:1px solid #eee;"><button onclick="editTodo(this)">Edit</button> <button onclick="deleteTodo(this)">Delete</button></td>
+                </tr>`);
+
+            input.value = '';
+            updateNumbers();
+            saveList();
         }
+
+        function deleteTodo(button) {
+            const row = button.closest('tr');
+            if (row) row.remove();
+            updateNumbers();
+            saveList();
+        }
+
+        function editTodo(button) {
+            const row = button.closest('tr');
+            if (!row) return;
+            const taskCell = row.querySelector('.task span');
+            const newTask = prompt('Edit task:', taskCell ? taskCell.textContent : '');
+            if (newTask !== null && newTask.trim() !== '') {
+                if (taskCell) taskCell.textContent = newTask.trim();
+                saveList();
+            }
+        }
+
+        function updateNumbers() {
+            const rows = document.querySelectorAll('#todoList tr');
+            rows.forEach((row, index) => {
+                const numCell = row.querySelector('.num');
+                if (numCell) numCell.textContent = index + 1;
+            });
+        }
+
+        loadList();
     </script>
 
 </body>
