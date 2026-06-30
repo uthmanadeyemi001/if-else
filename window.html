@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="goToRedirect()">redirect</button>
+    <button onclick="refreshPage()">Reload</button>
+
+    <script>
+      // Your JavaScript code here
+
+      function sayObj() {
+        // window.alert("hello,this window object")
+        // window.prompt("Enter your name:")
+        // window.confirm("Are you sure you want to proceed?");
+        console.log(window.location);
+      }
+      sayObj();
+
+      function goToRedirect() {
+        window.location.href = "./redirect.html";
+      }
+      function refreshPage() {
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

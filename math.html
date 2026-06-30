@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="number" id="myGuess" placeholder="guess a number between 1-10">
+    <button onclick="numCheck()">check</button>
+
+    <script>
+      let PI = Math.PI
+      let float = 2.6
+      console.log(PI);
+      console.log(Math.round(PI));
+      console.log(Math.floor(PI));
+      console.log(Math.floor(float));
+      console.log(Math.ceil(PI));
+      console.log(Math.min(-5,3,20,4,5,10));
+      console.log(Math.max(-5,3,20,4,5,10));
+      console.log(Math.random());
+
+      console.log(Math.round(Math.random() * 10));
+
+      console.log(Math.floor( Math.random()*25)+ 1);
+
+      console.log(Math.abs(-39));
+
+      console.log(Math.sqrt(2));
+
+      console.log(Math.pow(4,2));
+
+      //  guessing game
+let myNumber =5
+
+        function numCheck() {
+        
+         let randomNum = Math.round(Math.random() * 10) + 1;
+          if (myGuess.value == randomNum) {
+              alert("number is correct")
+          } else  {
+              alert("number is incorrect, the correct number is " + randomNum)
+          }
+
+
+        }
+    </script>
+  </body>
+</html>
